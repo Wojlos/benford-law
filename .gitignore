@@ -81,7 +81,7 @@ db.sqlite3
 db.sqlite3-journal
 benford-backend/api/migrations/*
 !benford-backend/api/migrations/__init__.py
-images
+benford-backend/images/*
 
 # Environments
 .env

@@ -8,7 +8,7 @@ import pandas as pd
 from api.models import DataSet
 from django.core.files import File
 from django.core.exceptions import ValidationError
-from rest_framework import serializers
+from rest_framework import serializers, status
 
 
 class DataSetSerializer(serializers.ModelSerializer):
@@ -24,9 +24,8 @@ class DataSetSerializer(serializers.ModelSerializer):
         data = pd.read_table(validated_data['file'])
         if not (validated_data['data_column'] in data):
             raise ValidationError( 
-                    {'message': 
-                            f'Column \"{validated_data["data_column"]}\
-                            " does not exist in datafile'
+                    {'data_column': 
+                            f'Column \"{validated_data["data_column"]}" does not exist in datafile'
                             }
                     )
 

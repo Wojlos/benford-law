@@ -6,7 +6,7 @@ class DataSet(models.Model):
             blank = True,
             null = False
             )
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
     file = models.FileField(upload_to='uploads/')
     data_column = models.CharField(max_length=200)
     benford_law = models.BooleanField(null = True, blank = True)

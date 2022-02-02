@@ -1,3 +1,4 @@
+from django.forms import ValidationError
 from rest_framework import generics, mixins, status
 from rest_framework.response import Response
 
@@ -36,8 +37,15 @@ class DataSetGenericApiView(
                 )
 
     def post(self,request):
+        try:
+            response = self.create(request).data,
+        except ValidationError as error:
+            return Response(
+                    error.message_dict,
+                    status = status.HTTP_400_BAD_REQUEST
+                )
         return Response(
-                self.create(request).data,
+                response,
                 status = status.HTTP_201_CREATED
             )
 

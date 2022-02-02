@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {Button, Form, Modal} from 'react-bootstrap'
+import {Alert,Button, Form, Modal} from 'react-bootstrap'
 import axios from 'axios'
 // import {API_URL} from '../../constants/index'
 
@@ -8,12 +8,11 @@ const AddDataSet =(props)=>{
     const [name, setName] = useState('')
     const [dataColumn, setDataColumn] = useState('')
     const [dataSet, setDataSet] = useState(null)
-
-
-
+    const [error, setError] = useState('')
 
     
     const handleOpenModal = () =>{
+        setError(null)
         setModalOpen(true)
     } 
 
@@ -31,9 +30,8 @@ const AddDataSet =(props)=>{
 
 
         try{
-            // `${API_URL}
             await axios({method: 'post',
-            url: 'http://localhost:8000/api/data-set',
+            url: '/api/data-set',
             data: formData,
             header: {
                       'Accept': 'application/json',
@@ -42,8 +40,9 @@ const AddDataSet =(props)=>{
               })
               props.refreshParentFormData()
             setModalOpen(false)   
-        }catch (error){
-            console.log(error)
+            setError(null)
+        }catch(error){
+            setError(error.response.data.dataColumn[0])
         }
 
     }
@@ -61,6 +60,11 @@ const AddDataSet =(props)=>{
             <Modal.Header>
                 Add new data set
             </Modal.Header> 
+            {error && 
+            <Alert variant={"danger"}>
+            {error}
+          </Alert>
+          }
             <Modal.Body>
                 <Form>
                     <Form.Group>

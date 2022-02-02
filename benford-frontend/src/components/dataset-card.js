@@ -22,7 +22,7 @@ const DataSetCard =(props)=>{
     
     const getFormData = async () => {
         try{    
-            const formResponse = await axios.get('http://localhost:8000/api/data-set-form-data')
+            const formResponse = await axios.get('/api/data-set-form-data')
             setDataSetFormData(formResponse.data.dataSetOptions)
             setSelectedDataSetId(formResponse.data.dataSetOptions[0]?.value)
         }catch(e){
@@ -33,7 +33,7 @@ const DataSetCard =(props)=>{
     const getData = async (id) => {
         if (id){
             try{
-                const dataResponse = await axios.get(`http://localhost:8000/api/data-set/${id}`)
+                const dataResponse = await axios.get(`/api/data-set/${id}`)
                 setDataSet(dataResponse.data)
             }catch(e){
                 console.error(e)
@@ -52,7 +52,7 @@ const DataSetCard =(props)=>{
 
     const handleDelete = async () =>{
         try{
-            await axios.delete(`http://localhost:8000/api/data-set/${selectedDataSetId}`)
+            await axios.delete(`/api/data-set/${selectedDataSetId}`)
             await getFormData()
         }catch(e){
             console.error(e)

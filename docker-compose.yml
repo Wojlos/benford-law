@@ -3,8 +3,6 @@ services:
   benford-backend:
     restart: always
     container_name: benford-backend
-    # volumes: 
-    #   - '.:/benford-backend'
     command : bash -c "python manage.py makemigrations &&
                       python manage.py migrate &&
                       python manage.py runserver 0.0.0.0:8000"
@@ -18,8 +16,6 @@ services:
     restart: always
     command : npm start
     container_name: benford-frontend
-    # volumes: 
-    #   - '.:/benford-frontend'
     build:
       context: ./benford-frontend/
       dockerfile: Dockerfile
