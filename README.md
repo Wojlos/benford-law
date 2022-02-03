@@ -10,6 +10,7 @@ $ cd carlist
 ```
 
 Make sure your docker is runnig
+
 Navigate to main directory then build and run docker container
 
 ```sh
