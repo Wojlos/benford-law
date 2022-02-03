@@ -37,14 +37,14 @@ class DataSetSerializer(serializers.ModelSerializer):
 
         benf = bf.Benford((data,'data_column' ), confidence = 95, decimals=0)
         benf_F1D = benf.F1D
-        benf_F1D.show_plot(save_plot='./images/tmp')
+        benf_F1D.show_plot(save_plot='./tmp')
         validated_data['benford_law'] = (
                 benf_F1D.critical_values['KS'] > benf.F1D.KS
                 )
         plt.show()
 
         instance = super().create(validated_data)
-        instance.graph = File(open('./images/tmp.png', 'rb'))
+        instance.graph = File(open('./tmp.png', 'rb'))
         instance.save()
         plt.close('all')
         return instance
